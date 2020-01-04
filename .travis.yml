@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+
+ before_install:
+  - docker build -t darkknight/react-test -f ./client/Dockerfile.dev ./client
+
+ script:
+  - docker run darkknight/react-test npm test -- --coverage
+
+ after_success:
+  - docker build -t darkknight/multi-client ./client
+  - docker build -t darkknight/multi-nginx ./nginx
+  - docker build -t darkknight/multi-server ./server
+  - docker build -t darkknight/multi-worker ./worker
+  # Log in to the docker CLI
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin 
+  # push those images to docker hub
+  - docker push darkknight/multi-client
+  - docker push darkknight/multi-nginx
+  - docker push darkknight/multi-server
+  - docker push darkknight/multi-worker
