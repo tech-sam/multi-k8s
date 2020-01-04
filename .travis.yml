@@ -2,13 +2,13 @@ sudo: required
 services:
   - docker
 
- before_install:
+before_install:
   - docker build -t darkknight/react-test -f ./client/Dockerfile.dev ./client
 
- script:
+script:
   - docker run -e CI=true darkknight/react-test npm test
 
- after_success:
+after_success:
   - docker build -t darkknight/multi-client ./client
   - docker build -t darkknight/multi-nginx ./nginx
   - docker build -t darkknight/multi-server ./server
