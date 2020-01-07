@@ -21,8 +21,7 @@ after_success:
   - docker push darkknightdocker/multi-nginx 
   - docker push darkknightdocker/multi-server 
   - docker push darkknightdocker/multi-worker 
-
- deploy:
+deploy:
   provider: elasticbeanstalk
   region: us-east-2
   app: multi-docker
