@@ -16,7 +16,7 @@ after_success:
   # Log in to the docker CLI
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # push those images to docker hub 
+  # push those images to docker hub test
   - docker push darkknightdocker/multi-client 
   - docker push darkknightdocker/multi-nginx 
   - docker push darkknightdocker/multi-server 
